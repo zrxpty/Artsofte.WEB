@@ -48,7 +48,9 @@ namespace Artsofte.WEB.Controllers
             var emp = from e in _employeeService.GetAll() 
                       where e.ProgrammingLanguage.Name.ToLower().Contains(searchString.ToLower()) || 
                       e.Departament.Name.ToLower().Contains(searchString.ToLower()) ||
-                      e.Departament.Floor.ToString().ToLower().Contains(searchString.ToLower())
+                      e.Departament.Floor.ToString().ToLower().Contains(searchString.ToLower())||
+                      e.Name.ToLower().Contains(searchString.ToLower()) ||
+                      e.Surname.ToLower().Contains(searchString.ToLower())
                       select e;
             ViewBag.Employee = _mapper.Map<ICollection<EmployeeVM>>(emp);
             return View();
