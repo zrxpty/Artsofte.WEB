@@ -49,7 +49,7 @@ namespace Artsofte.WEB.Controllers
                 return Json(_programmingLanguageService.GetAll().ToList());
             }
             var progLang = _programmingLanguageService.GetAll()
-                .Where(d => d.Name.ToLower().StartsWith(term))
+                .Where(d => d.Name.ToLower().StartsWith(term.ToLower()))
                 .Select(d => new { label = d.Name, value = d.Id })
                 .ToList();
 
