@@ -1,0 +1,49 @@
+﻿@using Artsofte.WEB.Models.ViewModels;
+@{
+    ViewData["Title"] = "Home Page";
+}
+<table class="table table-bordered table-striped" style="width:100%">
+<a asp-area="" asp-controller="Employee" asp-action="Add"><input class="btn btn-primary" type="submit" value="Add" /></a>
+ <br />
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Surname
+            </th>
+            <th>
+                Age
+            </th>
+            <th>
+                Department
+            </th>
+            <th>
+                Language
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (EmployeeVM item in ViewBag.Employee)
+        {
+                <tr>
+                    <td width="10%">@item.Name</td>
+                    <td width="10%">@item.Surname</td>
+                    <td width="10%">@item.Age</td>
+                    <td width="15%">@item.Departament.Floor</td>
+                    <td width="15%">@item.ProgrammingLanguage.Name</td>
+                    <td class="text-center">
+
+                    <a asp-area="" asp-controller="Employee" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-primary mx-2">
+                            <i>Change</i>
+                        </a>
+                        <a asp-area="" asp-controller="Employee" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger mx-2">
+                            <i>Delete</i>
+                        </a>
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>

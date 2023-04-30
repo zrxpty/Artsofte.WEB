@@ -1,0 +1,30 @@
+﻿@using Artsofte.WEB.Models.ViewModels;
+
+<table class="table table-bordered table-striped" style="width:100%">
+    <a asp-area="" asp-controller="ProgrammingLanguage" asp-action="Add"><input class="btn btn-primary" type="submit" value="Add" /></a>
+    <br />
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.ProgrammingLanguage)
+        {
+                <tr>
+                    <td width="10%">@item.Name</td>
+                    
+
+                    <td class="text-center">
+                    <a asp-area="" asp-controller="ProgrammingLanguage" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger mx-2">
+                            <i>Delete</i>
+                        </a>
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>

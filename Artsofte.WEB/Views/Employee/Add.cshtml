@@ -1,0 +1,136 @@
+﻿@using Artsofte.DAL.Enum;
+@using Artsofte.WEB.Models.ViewModels
+@model EmployeeVM
+
+<form method="post" asp-action="Add" asp-controller="Employee" enctype="multipart/form-data">
+    <input type="hidden" value="@Model.Id" name="Id" />
+    <div class="row">
+        <div class="col-8">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label>Name</label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label>Surname</label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Surname" class="form-control" />
+                    <span asp-validation-for="Surname" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label>Age</label>
+                </div>
+                <div class="col-8">
+                    <div class="col-8">
+                        <input asp-for="Age" min="18" max="99" type="number" class="form-control" />
+                        <span asp-validation-for="Age" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label>Gender</label>
+                </div>
+                <div class="col-8">
+                    <select asp-for="Gender" class="form-control select2" asp-items="@Html.GetEnumSelectList<GenderEnum>()">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                <span asp-validation-for="Gender" class="text-danger" />
+                </div>
+            </div>
+            <!-- Programming Language -->
+            <div class="form-group row">
+                <div class="col-4">
+                    <label>Programming Language</label>
+                </div>
+                <div class="col-8">
+                    <div class="col-8">
+                        <input type="text" asp-for="ProgrammingLanguage.Name" class="form-control" id="ProgrammingLanguage-autocomplete" />
+                        <input type="hidden" asp-for="ProgrammingLanguage.Id" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Department -->
+           <div class="form-group row">
+            <div class="col-4">
+                <label>Department</label>
+            </div>              
+                    <div class="col-8">
+                        <input type="text" asp-for="Departament.Name" class="form-control" id="department-autocomplete" />
+                        <input type="hidden" asp-for="Departament.Id" />
+                    </div>
+               </div>
+                <div class="form-group row">            
+            <br />          
+            <div class="form-group row">
+                <div class="col-8 offset-4 row">
+                    <div class="col">
+                        <input type="submit" onclick="return validateInput()" class="btn btn-info w-100" value="Add" />
+                    </div>
+                    <div class="col">
+                        <a asp-action="Index" class="btn btn-success w-100"><i class="fas fa-sign-out-alt"></i> Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            @* Keep this empty *@
+        </div>
+    </div>
+</form>
+
+@section scripts {
+    <script>
+        $(function() {
+            $("#department-autocomplete").autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: "@Url.Action("GetDepartments", "Departament")",
+                        dataType: "json",
+                        data: { term: request.term },
+                        success: function(data) {
+                            response(data);
+                        }
+                    });
+                },
+                minLength: 0,
+                select: function(event, ui) {
+                    $(this).val(ui.item.label);
+                    $(this).next("input[type=hidden]").val(ui.item.value);
+                    return false;
+                }
+            });
+        });
+            $(function() {
+            $("#ProgrammingLanguage-autocomplete").autocomplete({
+                    source: function(request, response) {
+                        $.ajax({
+                        url: "@Url.Action("GetPL", "ProgrammingLanguage")",
+                            dataType: "json",
+                            data: { term: request.term },
+                            success: function(data) {
+                                response(data);
+                            }
+                        });
+                    },
+                    minLength: 0,
+                    select: function(event, ui) {
+                        $(this).val(ui.item.label);
+                        $(this).next("input[type=hidden]").val(ui.item.value);
+                        return false;
+                    }
+                });
+            });
+    </script>
+}
+
+
