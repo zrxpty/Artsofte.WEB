@@ -41,9 +41,20 @@ namespace Artsofte.WEB.Controllers
             ViewBag.Employee = _mapper.Map<ICollection<EmployeeVM>>(employees);
             return View();
         }
+        [HttpPost]
+        public IActionResult Index(string? searchString)
+        {
+            if (searchString == null) searchString = "";
+            var emp = from e in _employeeService.GetAll() 
+                      where e.ProgrammingLanguage.Name.ToLower().Contains(searchString.ToLower()) || 
+                      e.Departament.Name.ToLower().Contains(searchString.ToLower()) ||
+                      e.Departament.Floor.ToString().ToLower().Contains(searchString.ToLower())
+                      select e;
+            ViewBag.Employee = _mapper.Map<ICollection<EmployeeVM>>(emp);
+            return View();
+        }
 
 
-        
 
         [HttpGet]
         public async Task<IActionResult> Add()

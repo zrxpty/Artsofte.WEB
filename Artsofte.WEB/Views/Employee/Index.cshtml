@@ -4,7 +4,18 @@
 }
 <table class="table table-bordered table-striped" style="width:100%">
 <a asp-area="" asp-controller="Employee" asp-action="Add"><input class="btn btn-primary" type="submit" value="Add" /></a>
- <br />
+    <br />
+    <br />
+<form action="" method="post" class="row g-2 justify-content-end">
+    <div class="col-auto">
+        <input class="form-control" name="searchString" placeholder="Search..." type="search">
+    </div>
+        <br />
+    <div class="col-auto">
+        <button class="btn btn-primary" asp-action="Index" asp-controller="Employee" type="submit">Поиск</button>
+    </div>
+</form>
+<br />
     <thead>
         <tr>
             <th>
