@@ -32,8 +32,23 @@
                     <td width="10%">@item.Name</td>
                     <td width="10%">@item.Surname</td>
                     <td width="10%">@item.Age</td>
+                @if (item.Departament != null)
+                {
                     <td width="15%">@item.Departament.Floor</td>
+                }
+                else
+                {
+                    <td width="15%">???</td>
+                }
+                    
+                @if(item.ProgrammingLanguage != null)
+                {
                     <td width="15%">@item.ProgrammingLanguage.Name</td>
+                }
+                else
+                {
+                    <td width="15%">???</td>
+                }
                     <td class="text-center">
 
                     <a asp-area="" asp-controller="Employee" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-primary mx-2">

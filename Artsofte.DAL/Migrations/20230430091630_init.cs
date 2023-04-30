@@ -47,8 +47,8 @@ namespace Artsofte.DAL.Migrations
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
-                    DepartamentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProgrammingLanguageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    DepartamentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ProgrammingLanguageId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -57,14 +57,12 @@ namespace Artsofte.DAL.Migrations
                         name: "FK_Employees_Departaments_DepartamentId",
                         column: x => x.DepartamentId,
                         principalTable: "Departaments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Employees_ProgrammingLanguages_ProgrammingLanguageId",
                         column: x => x.ProgrammingLanguageId,
                         principalTable: "ProgrammingLanguages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
@@ -72,9 +70,9 @@ namespace Artsofte.DAL.Migrations
                 columns: new[] { "Id", "Floor", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("2aa8b6de-a94b-4a61-8de2-1c1dd3081d9b"), 4, "AI" },
-                    { new Guid("37eeb94e-0af2-47fe-8fb7-1020eb2d965f"), 5, "Analytics" },
-                    { new Guid("d27b4d10-c4f7-46c6-be3f-13b3e7dc2614"), 3, "GameDev" }
+                    { new Guid("309ae420-177a-41b3-8da9-aa39280f19c3"), 3, "GameDev" },
+                    { new Guid("7e044f87-61ca-4379-9612-4b732dfbdad5"), 5, "Analytics" },
+                    { new Guid("a9274e70-c65c-4a16-b225-663c34bc6363"), 4, "AI" }
                 });
 
             migrationBuilder.InsertData(
@@ -82,13 +80,13 @@ namespace Artsofte.DAL.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("091dfd53-a344-4dad-aea0-6399e871ec6c"), "Go" },
-                    { new Guid("19e545ad-bd0b-42e4-ac4f-4e1de9274dda"), "C++" },
-                    { new Guid("57d5dd46-4a64-45ec-800f-fd299cba761f"), "JavaScript" },
-                    { new Guid("651709a0-5eb1-45d7-8f7f-122dc1bfa066"), "Python" },
-                    { new Guid("7e2a4608-f5e1-4ba5-a7ed-d7516f7803e8"), "Кумир" },
-                    { new Guid("c810e669-1840-4af7-8f50-d47cfc25a3fe"), "Scala" },
-                    { new Guid("ecd57f42-d96e-481c-a6e7-f13061531059"), "C#" }
+                    { new Guid("2010bf49-978e-4c50-9c90-17526e35660b"), "Scala" },
+                    { new Guid("30d8f615-8378-4343-8aaf-7505bcbae688"), "C++" },
+                    { new Guid("35277897-a6bb-450e-b5f9-b4865a8a25fb"), "Go" },
+                    { new Guid("48f5d342-647f-4dd1-afc8-b6f30c6e22be"), "JavaScript" },
+                    { new Guid("6f95e39b-83af-47e2-9dad-c3faff4fb7fb"), "C#" },
+                    { new Guid("8e195f00-3b2e-4075-8386-ab19960dbabd"), "Кумир" },
+                    { new Guid("93077adb-6815-47f2-a901-68444c2cc8dd"), "Python" }
                 });
 
             migrationBuilder.CreateIndex(

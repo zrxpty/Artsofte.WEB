@@ -5,6 +5,7 @@ using Artsofte.DAL.Interface;
 using Artsofte.DAL.Repositories;
 using Artsofte.WEB.AutoMapperProfiles;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,10 @@ var connectionString = builder.Configuration.GetConnectionString("ManagerDBConte
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(connectionString));
+{
+    options.UseSqlServer(connectionString);
+    options.EnableSensitiveDataLogging();
+});
 
 builder.Services.AddAutoMapper(typeof(EmployeeProfile));
 builder.Services.AddAutoMapper(typeof(ProgrammingLanguageProfile));

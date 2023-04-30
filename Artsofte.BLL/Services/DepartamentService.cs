@@ -3,6 +3,7 @@ using Artsofte.BLL.Interfaces;
 using Artsofte.DAL.Interface;
 using Artsofte.DAL.Models;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -50,11 +51,17 @@ namespace Artsofte.BLL.Services
             Departament departament = await _uow.GetRepository<Departament>().GetAsync(x => x.Id == id);
             if (departament != null)
             {
+                var employees = await _uow.GetRepository<Employee>().GetAll().Where(x => x.Departament.Id == id).ToListAsync();
+                foreach (var employee in employees)
+                {
+                    employee.Departament = null;
+                    await _uow.GetRepository<Employee>().UpdateAsync(employee);
+                    await _uow.SaveChangesAsync();
+                }
+
                 await _uow.GetRepository<Departament>().DeleteAsync(departament);
                 await _uow.SaveChangesAsync();
             }
         }
-
-        
     }
 }

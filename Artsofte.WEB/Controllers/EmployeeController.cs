@@ -73,8 +73,7 @@ namespace Artsofte.WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            ViewBag.Departament = _departamentService.GetAll();
-            ViewBag.ProgrammingLanguage = _programmingLanguageService.GetAll();
+            
             return View(_mapper.Map<EmployeeVM>(await _employeeService.GetAsync(x => x.Id == id)));
         }
         [HttpPost]

@@ -60,30 +60,39 @@ namespace Artsofte.BLL.Services
 
         public async Task<EmployeeDTO> UpdateAsync(EmployeeDTO item)
         {
-            var departament = await _uow.GetRepository<Departament>().GetAsync(x => x.Id == item.Departament.Id);
-            var programmingLanguage = await _uow.GetRepository<ProgrammingLanguage>().GetAsync(x => x.Id == item.ProgrammingLanguage.Id);
-            item.ProgrammingLanguage = _mapper.Map<ProgrammingLanguageDTO>(programmingLanguage);
-            item.Departament = _mapper.Map<DepartamentDTO>(departament);
             if (item == null)
+            {
                 throw new ArgumentNullException(nameof(item));
+            }
 
             var newDepartament = await _uow.GetRepository<Departament>().GetAsync(x => x.Id == item.Departament.Id);
+            if (newDepartament == null)
+            {
+                throw new ArgumentException($"Departament with Id={item.Departament.Id} does not exist in the database.");
+            }
+
             var newProgrammingLanguage = await _uow.GetRepository<ProgrammingLanguage>().GetAsync(x => x.Id == item.ProgrammingLanguage.Id);
-            
-            Employee newEmployee = await _uow.GetRepository<Employee>().GetAsync(x => x.Id == item.Id);
-            newEmployee.ProgrammingLanguage = newProgrammingLanguage;
-            newEmployee.Departament = newDepartament;
-            
+            if (newProgrammingLanguage == null)
+            {
+                throw new ArgumentException($"ProgrammingLanguage with Id={item.ProgrammingLanguage.Id} does not exist in the database.");
+            }
+
+            var newEmployee = await _uow.GetRepository<Employee>().GetAsync(x => x.Id == item.Id);
             if (newEmployee == null)
             {
                 throw new ArgumentException($"Employee with Id={item.Id} does not exist in the database.");
             }
 
-            _mapper.Map(item, newEmployee);
+            newEmployee.Name = item.Name;
+            newEmployee.Surname = item.Surname;
+            newEmployee.ProgrammingLanguageId = newProgrammingLanguage.Id;
+            newEmployee.DepartamentId = newDepartament.Id;
 
             newEmployee = await _uow.GetRepository<Employee>().UpdateAsync(newEmployee);
             await _uow.SaveChangesAsync();
+
             return _mapper.Map<EmployeeDTO>(newEmployee);
         }
+
     }
 }

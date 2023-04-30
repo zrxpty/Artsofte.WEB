@@ -1,9 +1,11 @@
 ﻿using Artsofte.DAL.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -43,7 +45,9 @@ namespace Artsofte.DAL
                     new ProgrammingLanguage{Id=Guid.NewGuid(), Name="JavaScript"},
                     new ProgrammingLanguage{Id=Guid.NewGuid(), Name="Кумир"},
                 }
-                );
+            );
+
+            
         }
     }
 }

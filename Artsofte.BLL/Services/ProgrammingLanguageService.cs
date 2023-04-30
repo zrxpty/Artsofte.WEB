@@ -3,6 +3,7 @@ using Artsofte.BLL.Interfaces;
 using Artsofte.DAL.Interface;
 using Artsofte.DAL.Models;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,11 +48,19 @@ namespace Artsofte.BLL.Services
             ProgrammingLanguage programmingLanguage = await _uow.GetRepository<ProgrammingLanguage>().GetAsync(x => x.Id == id);
             if (programmingLanguage != null)
             {
+                var employees = await _uow.GetRepository<Employee>().GetAll().Where(x => x.ProgrammingLanguage.Id == id).ToListAsync();
+                foreach (var employee in employees)
+                {
+                    employee.Departament = null;
+                    await _uow.GetRepository<Employee>().UpdateAsync(employee);
+                    await _uow.SaveChangesAsync();
+                }
+
                 await _uow.GetRepository<ProgrammingLanguage>().DeleteAsync(programmingLanguage);
                 await _uow.SaveChangesAsync();
             }
         }
 
-        
+
     }
 }

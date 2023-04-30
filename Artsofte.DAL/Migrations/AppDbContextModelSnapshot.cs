@@ -42,19 +42,19 @@ namespace Artsofte.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5487ec23-ca3e-48f5-b269-76750ce8d0c1"),
+                            Id = new Guid("a9274e70-c65c-4a16-b225-663c34bc6363"),
                             Floor = 4,
                             Name = "AI"
                         },
                         new
                         {
-                            Id = new Guid("778342d4-d285-446b-b61f-45777dfc1261"),
+                            Id = new Guid("7e044f87-61ca-4379-9612-4b732dfbdad5"),
                             Floor = 5,
                             Name = "Analytics"
                         },
                         new
                         {
-                            Id = new Guid("fdce7ce6-712f-40fc-b4d0-79fe2d20767c"),
+                            Id = new Guid("309ae420-177a-41b3-8da9-aa39280f19c3"),
                             Floor = 3,
                             Name = "GameDev"
                         });
@@ -69,7 +69,7 @@ namespace Artsofte.DAL.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("DepartamentId")
+                    b.Property<Guid?>("DepartamentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Gender")
@@ -79,7 +79,7 @@ namespace Artsofte.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ProgrammingLanguageId")
+                    b.Property<Guid?>("ProgrammingLanguageId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Surname")
@@ -112,37 +112,37 @@ namespace Artsofte.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("681bd6db-ab50-414f-9131-3d239c25af41"),
+                            Id = new Guid("6f95e39b-83af-47e2-9dad-c3faff4fb7fb"),
                             Name = "C#"
                         },
                         new
                         {
-                            Id = new Guid("6e74d219-589c-49b0-9c4a-954e0029d521"),
+                            Id = new Guid("30d8f615-8378-4343-8aaf-7505bcbae688"),
                             Name = "C++"
                         },
                         new
                         {
-                            Id = new Guid("ae0db73e-e8ed-4c20-b80b-9c5e0b59d45b"),
+                            Id = new Guid("93077adb-6815-47f2-a901-68444c2cc8dd"),
                             Name = "Python"
                         },
                         new
                         {
-                            Id = new Guid("5a71d13c-9111-462c-94d7-a8ee4a71a8dd"),
+                            Id = new Guid("2010bf49-978e-4c50-9c90-17526e35660b"),
                             Name = "Scala"
                         },
                         new
                         {
-                            Id = new Guid("13939561-3327-41f6-909c-2a09c48e82b3"),
+                            Id = new Guid("35277897-a6bb-450e-b5f9-b4865a8a25fb"),
                             Name = "Go"
                         },
                         new
                         {
-                            Id = new Guid("9139235e-fb1e-4ba3-92b7-46462aa3c443"),
+                            Id = new Guid("48f5d342-647f-4dd1-afc8-b6f30c6e22be"),
                             Name = "JavaScript"
                         },
                         new
                         {
-                            Id = new Guid("0766f8b1-83d1-476f-996b-6d8abe5af6ba"),
+                            Id = new Guid("8e195f00-3b2e-4075-8386-ab19960dbabd"),
                             Name = "Кумир"
                         });
                 });
@@ -151,15 +151,11 @@ namespace Artsofte.DAL.Migrations
                 {
                     b.HasOne("Artsofte.DAL.Models.Departament", "Departament")
                         .WithMany()
-                        .HasForeignKey("DepartamentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DepartamentId");
 
                     b.HasOne("Artsofte.DAL.Models.ProgrammingLanguage", "ProgrammingLanguage")
                         .WithMany()
-                        .HasForeignKey("ProgrammingLanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProgrammingLanguageId");
 
                     b.Navigation("Departament");
 
